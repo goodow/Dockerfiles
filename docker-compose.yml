@@ -1,0 +1,7 @@
+version: '3.5'
+services:
+
+  jenkins-slave-jdk8:
+    image: goodow/jenkins-slave-jdk8
+    build:
+      context: jenkins-slave-jdk8
