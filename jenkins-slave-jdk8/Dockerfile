@@ -25,3 +25,4 @@ RUN mv ./kubectl /usr/local/bin/kubectl
 
 USER jenkins
 
+COPY maven-settings.xml .m2/settings.xml

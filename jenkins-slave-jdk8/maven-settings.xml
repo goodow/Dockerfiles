@@ -1,0 +1,24 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      https://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <proxies>
+    <proxy>
+      <id>tencent-devnet-proxy</id>
+      <active>${activate.proxy}</active>
+      <protocol>http</protocol>
+      <host>10.14.36.84</host>
+      <port>8080</port>
+      <nonProxyHosts>*.oa.com|*.example.com</nonProxyHosts>
+    </proxy>
+  </proxies>
+
+  <profiles>
+    <profile>
+      <id>tencent</id>
+      <properties>
+        <activate.proxy>true</activate.proxy>
+      </properties>
+    </profile>
+  </profiles>
+</settings>
