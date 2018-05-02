@@ -1,10 +1,10 @@
 version: '3.5'
 services:
 
-  jenkins-slave-jdk8:
+  jdk8:
     image: goodow/jenkins-slave-jdk8
     build:
       context: jenkins-slave-jdk8
       args:
-        http_proxy: http://10.14.36.84:8080
-        https_proxy: http://10.14.36.84:8080
+        http_proxy: http://proxy.cid.goodow.com:8080
+        https_proxy: http://proxy.cid.goodow.com:8080
