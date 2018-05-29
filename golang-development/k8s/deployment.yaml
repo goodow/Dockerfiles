@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: golang-development
+spec:
+  selector:
+    matchLabels:
+      app: golang-development
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: golang-development
+    spec:
+      containers:
+      - name: golang-development
+        image: goodow/golang-development:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /go
+          name: golang-src
+      volumes:
+       - name: golang-src
+         hostPath:
+           path: /home/ubuntu/go
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: golang-development
+spec:
+  selector:
+    app: golang-development
+  type: LoadBalancer
+  ports:
+  - port: 22
+    targetPort: 22
+  - port: 8080
+    targetPort: 8080
