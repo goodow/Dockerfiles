@@ -10,7 +10,7 @@ services:
         https_proxy: http://proxy.cid.goodow.com:8080
 
   go-dev:
-    image: goodow/golang-development
+    image: goodow/golang-development:latest
     build:
       context: golang-development
       args:
