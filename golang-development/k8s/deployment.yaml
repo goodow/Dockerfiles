@@ -38,5 +38,7 @@ spec:
   ports:
   - port: 22
     targetPort: 22
+    name: ssh
   - port: 8080
     targetPort: 8080
+    name: "8080"
