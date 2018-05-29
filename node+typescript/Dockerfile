@@ -1,7 +1,5 @@
-FROM node
+FROM go
 MAINTAINER larrytin "dev@goodow.com"
-
-RUN npm install -g typescript
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-server \
