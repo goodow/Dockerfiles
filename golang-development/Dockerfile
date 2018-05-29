@@ -1,4 +1,4 @@
-FROM go
+FROM golang
 MAINTAINER sheltonliu "sheltonliu@tencent.com"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
