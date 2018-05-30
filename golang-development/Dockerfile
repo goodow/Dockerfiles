@@ -3,8 +3,8 @@ MAINTAINER sheltonliu "sheltonliu@tencent.com"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-server \
-    && mkdir /var/run/sshd && echo 'developer:aiot' |chpasswd \
-    && rm -rf /var/lib/apt/lists/*
+    && mkdir /var/run/sshd && useradd developer && echo 'developer:aiot' |chpasswd \
+    && chown developer /go && rm -rf /var/lib/apt/lists/*
 
 RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 #RUN sed -ri 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
