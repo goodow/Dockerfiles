@@ -17,6 +17,7 @@ spec:
         image: goodow/golang-development:latest
         ports:
         - containerPort: 8080
+        - containerPort: 22
         volumeMounts:
         - mountPath: /go
           name: golang-src
@@ -38,5 +39,7 @@ spec:
   ports:
   - port: 22
     targetPort: 22
+    name: ssh
   - port: 8080
     targetPort: 8080
+    name: "8080"
