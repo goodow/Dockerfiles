@@ -4,7 +4,8 @@ MAINTAINER sheltonliu "sheltonliu@tencent.com"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-server \
     && mkdir /var/run/sshd && useradd -m developer && echo 'developer:aiot' |chpasswd \
-    && echo -e 'chown developer /go\nln -s /usr/local/go/bin/go /usr/bin/go' > /etc/profile.d/chown.sh \
+    && echo 'chown developer /go' > /etc/profile.d/chown.sh \
+    && echo 'ln -s /usr/local/go/bin/go /usr/bin/go' >> /etc/profile.d/chown.sh \
     && rm -rf /var/lib/apt/lists/*
 
 #RUN sed -ri 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
