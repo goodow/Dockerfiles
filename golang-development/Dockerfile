@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-server \
     && mkdir /var/run/sshd && useradd -m developer && echo 'developer:aiot' |chpasswd \
     && echo 'chown developer /go' > /etc/profile.d/init.sh \
-    && echo "/user/local/go/bin/go" > /etc/ld.so.conf.d/gopath.conf \
+    && echo "/user/local/go/bin" > /etc/ld.so.conf.d/gopath.conf \
     && rm -rf /var/lib/apt/lists/*
 
 #RUN sed -ri 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
