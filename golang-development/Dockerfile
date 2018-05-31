@@ -5,8 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-server \
     && mkdir /var/run/sshd && useradd -m developer && echo 'developer:aiot' |chpasswd \
     && echo 'chown developer /go' > /etc/profile.d/init.sh \
-    && echo 'PATH=$PATH:/usr/bin/go/bin' >> /etc/profile.d/init.sh \
-    && echo 'export PATH' >> /etc/profile.d/init.sh \
+    && echo 'export PATH=$PATH:/usr/bin/go/bin' >> /etc/profile.d/init.sh \
     && rm -rf /var/lib/apt/lists/*
 
 #RUN sed -ri 's/export PATH/export PATH=\/user\/local\/go\/bin:$PATH/' /etc/profile
