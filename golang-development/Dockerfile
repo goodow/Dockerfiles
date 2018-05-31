@@ -4,8 +4,9 @@ MAINTAINER sheltonliu "sheltonliu@tencent.com"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-server \
     && mkdir /var/run/sshd && useradd -m developer && echo 'developer:aiot' |chpasswd \
-    && ln -s /user/local/go/bin/go /usr/bin/go \
+    #&& ln -s /user/local/go/bin/go /usr/bin/go \
     && echo 'chown developer /go' > /etc/profile.d/init.sh \
+    && echo 'ln -s /user/local/go/bin/go /usr/bin/go' >> /etc/profile.d/init.sh \
     && rm -rf /var/lib/apt/lists/*
 
 #RUN sed -ri 's/export PATH/export PATH=\/user\/local\/go\/bin:$PATH/' /etc/profile
