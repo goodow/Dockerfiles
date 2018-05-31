@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: conn-dev
+spec:
+  selector:
+    matchLabels:
+      app: conn-dev
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: conn-dev
+    spec:
+      containers:
+      - name: conn-dev
+        image: goodow/golang-development:latest
+        ports:
+        - containerPort: 8080
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /go
+          name: golang-src
+      volumes:
+       - name: golang-src
+         hostPath:
+           path: /home/ubuntu/conn
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: conn-dev
+spec:
+  selector:
+    app: conn-dev
+  type: LoadBalancer
+  ports:
+  - port: 22
+    targetPort: 22
+    name: ssh
+  - port: 8080
+    targetPort: 8080
+    name: "8080"
