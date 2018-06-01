@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: aiot-dev
+spec:
+  selector:
+    matchLabels:
+      app: aiot-dev
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: aiot-dev
+    spec:
+      containers:
+      - name: aiot-dev
+        image: goodow/golang-development:latest
+        ports:
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /go
+          name: golang-src
+      volumes:
+       - name: golang-src
+         hostPath:
+           path: /home/ubuntu/go
