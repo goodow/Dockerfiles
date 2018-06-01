@@ -1,22 +1,22 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: conn-dev
+  name: iot-policy-svr
 spec:
   selector:
     matchLabels:
-      app: conn-dev
+      app: iot-policy-svr
   replicas: 1
   template:
     metadata:
       labels:
-        app: conn-dev
+        app: iot-policy-svr
     spec:
       containers:
-      - name: conn-dev
+      - name: iot-policy-svr
         image: goodow/golang-development:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 10004
         - containerPort: 22
         volumeMounts:
         - mountPath: /go
@@ -24,22 +24,19 @@ spec:
       volumes:
        - name: golang-src
          hostPath:
-           path: /home/ubuntu/conn
+           path: /home/ubuntu/gosrc/policy
 
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: conn-dev
+  name: iot-policy-svr
 spec:
   selector:
-    app: conn-dev
+    app: iot-policy-svr
   type: LoadBalancer
   ports:
-  - port: 22
+  - port: 36002
     targetPort: 22
     name: ssh
-  - port: 8080
-    targetPort: 8080
-    name: "8080"
