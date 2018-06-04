@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iot-cert-svr
+spec:
+  selector:
+    matchLabels:
+      app: iot-cert-svr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: iot-cert-svr
+    spec:
+      containers:
+      - name: iot-cert-svr
+        image: goodow/golang-development:latest
+        ports:
+        - containerPort: 10001
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /go
+          name: golang-src
+      volumes:
+       - name: golang-src
+         hostPath:
+           path: /home/ubuntu/gosrc/cert
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iot-cert-svr
+spec:
+  selector:
+    app: iot-cert-svr
+  type: LoadBalancer
+  ports:
+  - port: 36002
+    targetPort: 22
+    name: ssh

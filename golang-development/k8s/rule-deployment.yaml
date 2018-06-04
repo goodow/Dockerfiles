@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iot-rule-svr
+spec:
+  selector:
+    matchLabels:
+      app: iot-rule-svr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: iot-rule-svr
+    spec:
+      containers:
+      - name: iot-rule-svr
+        image: goodow/golang-development:latest
+        ports:
+        - containerPort: 10006
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /go
+          name: golang-src
+      volumes:
+       - name: golang-src
+         hostPath:
+           path: /home/ubuntu/gosrc/rule
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iot-rule-svr
+spec:
+  selector:
+    app: iot-rule-svr
+  type: LoadBalancer
+  ports:
+  - port: 36002
+    targetPort: 22
+    name: ssh
+  

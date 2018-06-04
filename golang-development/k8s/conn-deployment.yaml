@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iot-conn-svr
+spec:
+  selector:
+    matchLabels:
+      app: iot-conn-svr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: iot-conn-svr
+    spec:
+      containers:
+      - name: iot-conn-svr
+        image: goodow/golang-development:latest
+        ports:
+        - containerPort: 10000
+        - containerPort: 22
+        - containerPort: 1883
+        - containerPort: 443
+        volumeMounts:
+        - mountPath: /go
+          name: golang-src
+      volumes:
+       - name: golang-src
+         hostPath:
+           path: /home/ubuntu/gosrc/conn
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iot-conn-svr
+spec:
+  selector:
+    app: iot-conn-svr
+  type: LoadBalancer
+  ports:
+  - port: 36002
+    targetPort: 22
+    name: ssh
+  - port: 1883
+    targetPort: 1883
+    name: mqtt
+  - port: 443
+    targetPort: 443
+    name: https
