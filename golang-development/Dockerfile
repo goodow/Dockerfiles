@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && echo 'root:aiot' |chpasswd \
     && echo 'chown developer /go' > /etc/profile.d/init.sh \
     && echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile.d/init.sh \
+    && echo 'if [ -f "/go/init.sh" ]; then /go/init.sh; fi' >> /etc/profile.d/init.sh \
     && echo 'source /etc/profile' >> ~/.bashrc \
     && rm -rf /var/lib/apt/lists/*
 
