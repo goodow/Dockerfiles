@@ -1,28 +1,30 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: nginx
-spec:
-  selector:
-    matchLabels:
-      app: nginx
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: nginx
-
-
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx
+  annotations:
+    service.kubernetes.io/qcloud-loadbalancer-clusterid: cls-jrug3sqc
+    service.kubernetes.io/qcloud-loadbalancer-internal: " lb-dxyqhdnv"
+    service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-4szimp84
+  labels:
+    qcloud-app: proxy1
+  name: proxy1
+  namespace: default
+  resourceVersion: "28066521474"
+  selfLink: /api/v1/namespaces/default/services/proxy1
+  uid: 26cc5c40-81cb-11e8-8a09-525400152caa
 spec:
-  selector:
-    app: nginx
-  type: LoadBalancer
+  clusterIP: 172.16.255.53
   ports:
-  - port: 3001
-    targetPort: 3001
-    name: "3001"
+  - name: tcp-3333-3333-9cjkn
+    nodePort: 31846
+    port: 3333
+    protocol: TCP
+    targetPort: 3333
+  selector:
+    qcloud-app: proxy1
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.0.0.2
