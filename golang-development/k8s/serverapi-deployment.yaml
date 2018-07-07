@@ -1,46 +1,28 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: iot-serverapi-svr
+  name: nginx
 spec:
   selector:
     matchLabels:
-      app: iot-serverapi-svr
+      app: nginx
   replicas: 1
   template:
     metadata:
       labels:
-        app: iot-serverapi-svr
-    spec:
-      containers:
-      - name: iot-serverapi-svr
-        image: goodow/golang-development:latest
-        ports:
-        - containerPort: 10008
-        - containerPort: 3001
-        - containerPort: 22
-        volumeMounts:
-        - mountPath: /go
-          name: golang-src
-      volumes:
-       - name: golang-src
-         hostPath:
-           path: /home/ubuntu/gosrc/serverapi
+        app: nginx
 
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: iot-serverapi-svr
+  name: nginx
 spec:
   selector:
-    app: iot-serverapi-svr
+    app: nginx
   type: LoadBalancer
   ports:
-  - port: 36002
-    targetPort: 22
-    name: ssh
   - port: 3001
     targetPort: 3001
     name: "3001"
